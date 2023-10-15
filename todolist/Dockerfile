@@ -1,6 +1,7 @@
-FROM ubuntu:latest AS BUILD
+FROM ubuntu:latest AS build
 
-RUN apt-get update && apt-get install openjdk-17-jdk -y
+RUN apt-get update
+RUN apt-get install openjdk-17-jdk -y
 
 COPY . .
 
@@ -11,7 +12,7 @@ FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-COPY --from=BUILD /target/todolist-1.0.0.jar app.jar
+COPY --from=build /target/todolist-1.0.0.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
